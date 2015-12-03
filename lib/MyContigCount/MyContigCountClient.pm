@@ -201,6 +201,98 @@ contigset_id - the ContigSet to count.
     }
 }
  
+
+
+=head2 run_fba
+
+  $return = $obj->run_fba($workspace_name, $fbamodel_id)
+
+=over 4
+
+=item Parameter and return types
+
+=begin html
+
+<pre>
+$workspace_name is a MyContigCount.workspace_name
+$fbamodel_id is a MyContigCount.fbamodel_id
+$return is a MyContigCount.RunFBAResult
+workspace_name is a string
+fbamodel_id is a string
+RunFBAResult is a reference to a hash where the following keys are defined:
+	flux_value has a value which is a float
+
+</pre>
+
+=end html
+
+=begin text
+
+$workspace_name is a MyContigCount.workspace_name
+$fbamodel_id is a MyContigCount.fbamodel_id
+$return is a MyContigCount.RunFBAResult
+workspace_name is a string
+fbamodel_id is a string
+RunFBAResult is a reference to a hash where the following keys are defined:
+	flux_value has a value which is a float
+
+
+=end text
+
+=item Description
+
+Run FBA on the model and return the flux value
+
+=back
+
+=cut
+
+ sub run_fba
+{
+    my($self, @args) = @_;
+
+# Authentication: required
+
+    if ((my $n = @args) != 2)
+    {
+	Bio::KBase::Exceptions::ArgumentValidationError->throw(error =>
+							       "Invalid argument count for function run_fba (received $n, expecting 2)");
+    }
+    {
+	my($workspace_name, $fbamodel_id) = @args;
+
+	my @_bad_arguments;
+        (!ref($workspace_name)) or push(@_bad_arguments, "Invalid type for argument 1 \"workspace_name\" (value was \"$workspace_name\")");
+        (!ref($fbamodel_id)) or push(@_bad_arguments, "Invalid type for argument 2 \"fbamodel_id\" (value was \"$fbamodel_id\")");
+        if (@_bad_arguments) {
+	    my $msg = "Invalid arguments passed to run_fba:\n" . join("", map { "\t$_\n" } @_bad_arguments);
+	    Bio::KBase::Exceptions::ArgumentValidationError->throw(error => $msg,
+								   method_name => 'run_fba');
+	}
+    }
+
+    my $result = $self->{client}->call($self->{url}, $self->{headers}, {
+	method => "MyContigCount.run_fba",
+	params => \@args,
+    });
+    if ($result) {
+	if ($result->is_error) {
+	    Bio::KBase::Exceptions::JSONRPC->throw(error => $result->error_message,
+					       code => $result->content->{error}->{code},
+					       method_name => 'run_fba',
+					       data => $result->content->{error}->{error} # JSON::RPC::ReturnObject only supports JSONRPC 1.1 or 1.O
+					      );
+	} else {
+	    return wantarray ? @{$result->result} : $result->result->[0];
+	}
+    } else {
+        Bio::KBase::Exceptions::HTTP->throw(error => "Error invoking method run_fba",
+					    status_line => $self->{client}->status_line,
+					    method_name => 'run_fba',
+				       );
+    }
+}
+ 
   
 
 sub version {
@@ -214,16 +306,16 @@ sub version {
             Bio::KBase::Exceptions::JSONRPC->throw(
                 error => $result->error_message,
                 code => $result->content->{code},
-                method_name => 'count_contigs',
+                method_name => 'run_fba',
             );
         } else {
             return wantarray ? @{$result->result} : $result->result->[0];
         }
     } else {
         Bio::KBase::Exceptions::HTTP->throw(
-            error => "Error invoking method count_contigs",
+            error => "Error invoking method run_fba",
             status_line => $self->{client}->status_line,
-            method_name => 'count_contigs',
+            method_name => 'run_fba',
         );
     }
 }
@@ -344,6 +436,67 @@ contig_count has a value which is an int
 
 a reference to a hash where the following keys are defined:
 contig_count has a value which is an int
+
+
+=end text
+
+=back
+
+
+
+=head2 fbamodel_id
+
+=over 4
+
+
+
+=item Description
+
+A string representing an fba model id
+
+
+=item Definition
+
+=begin html
+
+<pre>
+a string
+</pre>
+
+=end html
+
+=begin text
+
+a string
+
+=end text
+
+=back
+
+
+
+=head2 RunFBAResult
+
+=over 4
+
+
+
+=item Definition
+
+=begin html
+
+<pre>
+a reference to a hash where the following keys are defined:
+flux_value has a value which is a float
+
+</pre>
+
+=end html
+
+=begin text
+
+a reference to a hash where the following keys are defined:
+flux_value has a value which is a float
 
 
 =end text

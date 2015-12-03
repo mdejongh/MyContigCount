@@ -1,5 +1,6 @@
 #BEGIN_HEADER
 from biokbase.workspace.client import Workspace as workspaceService
+from biokbase.fbaModelServices.Client import fbaModelServices as fbaService
 #END_HEADER
 
 
@@ -21,6 +22,7 @@ This sample module contains one small method - count_contigs.
     #########################################
     #BEGIN_CLASS_HEADER
     workspaceURL = None
+    fbaURL = None
     #END_CLASS_HEADER
 
     # config contains contents of config file in a hash or None if it couldn't
@@ -28,6 +30,7 @@ This sample module contains one small method - count_contigs.
     def __init__(self, config):
         #BEGIN_CONSTRUCTOR
         self.workspaceURL = config['workspace-url']
+        self.fbaURL = config['fba-url']
         #END_CONSTRUCTOR
         pass
 
@@ -44,6 +47,25 @@ This sample module contains one small method - count_contigs.
         # At some point might do deeper type checking...
         if not isinstance(returnVal, dict):
             raise ValueError('Method count_contigs return value ' +
+                             'returnVal is not type dict as required.')
+        # return the results
+        return [returnVal]
+
+    def run_fba(self, ctx, workspace_name, fbamodel_id):
+        # ctx is the context object
+        # return variables are: returnVal
+        #BEGIN run_fba
+        token = ctx['token']
+        wsClient = workspaceService(self.workspaceURL, token=token)
+        print self.fbaURL
+        fbaClient = fbaService(self.fbaURL, token=token)
+        res = fbaClient.runfba({'workspace':workspace_name, 'model':fbamodel_id})
+        returnVal = {'flux_value': res[0]}
+        #END run_fba
+
+        # At some point might do deeper type checking...
+        if not isinstance(returnVal, dict):
+            raise ValueError('Method run_fba return value ' +
                              'returnVal is not type dict as required.')
         # return the results
         return [returnVal]

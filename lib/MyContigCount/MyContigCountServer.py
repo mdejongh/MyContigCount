@@ -63,6 +63,9 @@ async_check_methods = {}
 async_run_methods['MyContigCount.count_contigs_async'] = ['MyContigCount', 'count_contigs']
 async_check_methods['MyContigCount.count_contigs_check'] = ['MyContigCount', 'count_contigs']
 sync_methods['MyContigCount.count_contigs'] = True
+async_run_methods['MyContigCount.run_fba_async'] = ['MyContigCount', 'run_fba']
+async_check_methods['MyContigCount.run_fba_check'] = ['MyContigCount', 'run_fba']
+sync_methods['MyContigCount.run_fba'] = True
 
 class AsyncJobServiceClient(object):
 
@@ -337,6 +340,10 @@ class Application(object):
                              name='MyContigCount.count_contigs',
                              types=[basestring, basestring])
         self.method_authentication['MyContigCount.count_contigs'] = 'required'
+        self.rpc_service.add(impl_MyContigCount.run_fba,
+                             name='MyContigCount.run_fba',
+                             types=[basestring, basestring])
+        self.method_authentication['MyContigCount.run_fba'] = 'required'
         self.auth_client = biokbase.nexus.Client(
             config={'server': 'nexus.api.globusonline.org',
                     'verify_ssl': True,

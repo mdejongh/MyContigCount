@@ -159,4 +159,24 @@ public class MyContigCountClient {
         List<CountContigsResults> res = caller.jsonrpcCall("MyContigCount.count_contigs", args, retType, true, true, jsonRpcContext);
         return res.get(0);
     }
+
+    /**
+     * <p>Original spec-file function name: run_fba</p>
+     * <pre>
+     * Run FBA on the model and return the flux value
+     * </pre>
+     * @param   arg1   instance of original type "workspace_name" (A string representing a workspace name.)
+     * @param   arg2   instance of original type "fbamodel_id" (A string representing an fba model id)
+     * @return   instance of type {@link us.kbase.mycontigcount.RunFBAResult RunFBAResult}
+     * @throws IOException if an IO exception occurs
+     * @throws JsonClientException if a JSON RPC exception occurs
+     */
+    public RunFBAResult runFba(String arg1, String arg2, RpcContext... jsonRpcContext) throws IOException, JsonClientException {
+        List<Object> args = new ArrayList<Object>();
+        args.add(arg1);
+        args.add(arg2);
+        TypeReference<List<RunFBAResult>> retType = new TypeReference<List<RunFBAResult>>() {};
+        List<RunFBAResult> res = caller.jsonrpcCall("MyContigCount.run_fba", args, retType, true, true, jsonRpcContext);
+        return res.get(0);
+    }
 }
