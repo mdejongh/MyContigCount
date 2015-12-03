@@ -2,7 +2,7 @@
 	"ver": "0.0.1",
 	
 	"authors": [
-		"[your_kbase_user_name]"
+		"[dejongh]"
 	],
 	"contact": "help@kbase.us",
 	"visible": true,
@@ -13,14 +13,14 @@
 	},
 	"parameters": [ 
 		{
-			"id": "contigset_id",
+			"id": "fbamodel_id",
 			"optional": false,
 			"advanced": false,
 			"allow_multiple": false,
 			"default_values": [ "" ],
 			"field_type": "text",
 			"text_options": {
-				"valid_ws_types": ["KBaseGenomes.ContigSet"]
+				"valid_ws_types": ["fbaModelServices.FBAModel"]
 			}
 		}
 	],
@@ -28,25 +28,25 @@
 		"service-mapping": {
 			"url": "",
 			"name": "MyContigCount",
-			"method": "count_contigs",
+			"method": "run_fba",
 			"input_mapping": [
 				{
 					"narrative_system_variable": "workspace",
 					"target_argument_position": 0
 				},
 				{
-					"input_parameter": "contigset_id",
+					"input_parameter": "fbamodel_id",
 					"target_argument_position": 1
 				}
 			],
 			"output_mapping": [
 				{
-					"service_method_output_path": [0, "contig_count"],
-					"target_property": "contigCount"
+					"service_method_output_path": [0, "mfa_log"],
+					"target_property": "MFALog"
 				},
 				{
-					"input_parameter": "contigset_id",
-					"target_property": "contigsetId"
+					"input_parameter": "fbamodel_id",
+					"target_property": "fbamodelId"
 				},
 				{
 					"narrative_system_variable": "workspace",
