@@ -205,7 +205,7 @@ contigset_id - the ContigSet to count.
 
 =head2 run_fba
 
-  $return = $obj->run_fba($workspace_name, $fbamodel_id)
+  $return = $obj->run_fba($workspace_name, $fbamodel_id, $elements)
 
 =over 4
 
@@ -216,9 +216,11 @@ contigset_id - the ContigSet to count.
 <pre>
 $workspace_name is a MyContigCount.workspace_name
 $fbamodel_id is a MyContigCount.fbamodel_id
+$elements is a MyContigCount.elements
 $return is a MyContigCount.RunFBAResult
 workspace_name is a string
 fbamodel_id is a string
+elements is a string
 RunFBAResult is a reference to a hash where the following keys are defined:
 	flux_value has a value which is a float
 
@@ -230,9 +232,11 @@ RunFBAResult is a reference to a hash where the following keys are defined:
 
 $workspace_name is a MyContigCount.workspace_name
 $fbamodel_id is a MyContigCount.fbamodel_id
+$elements is a MyContigCount.elements
 $return is a MyContigCount.RunFBAResult
 workspace_name is a string
 fbamodel_id is a string
+elements is a string
 RunFBAResult is a reference to a hash where the following keys are defined:
 	flux_value has a value which is a float
 
@@ -253,17 +257,18 @@ Run FBA on the model and return the flux value
 
 # Authentication: required
 
-    if ((my $n = @args) != 2)
+    if ((my $n = @args) != 3)
     {
 	Bio::KBase::Exceptions::ArgumentValidationError->throw(error =>
-							       "Invalid argument count for function run_fba (received $n, expecting 2)");
+							       "Invalid argument count for function run_fba (received $n, expecting 3)");
     }
     {
-	my($workspace_name, $fbamodel_id) = @args;
+	my($workspace_name, $fbamodel_id, $elements) = @args;
 
 	my @_bad_arguments;
         (!ref($workspace_name)) or push(@_bad_arguments, "Invalid type for argument 1 \"workspace_name\" (value was \"$workspace_name\")");
         (!ref($fbamodel_id)) or push(@_bad_arguments, "Invalid type for argument 2 \"fbamodel_id\" (value was \"$fbamodel_id\")");
+        (!ref($elements)) or push(@_bad_arguments, "Invalid type for argument 3 \"elements\" (value was \"$elements\")");
         if (@_bad_arguments) {
 	    my $msg = "Invalid arguments passed to run_fba:\n" . join("", map { "\t$_\n" } @_bad_arguments);
 	    Bio::KBase::Exceptions::ArgumentValidationError->throw(error => $msg,
@@ -498,6 +503,37 @@ flux_value has a value which is a float
 a reference to a hash where the following keys are defined:
 flux_value has a value which is a float
 
+
+=end text
+
+=back
+
+
+
+=head2 elements
+
+=over 4
+
+
+
+=item Description
+
+An string of element symbols separated by semi-colons (e.g., "C;N;O")
+
+
+=item Definition
+
+=begin html
+
+<pre>
+a string
+</pre>
+
+=end html
+
+=begin text
+
+a string
 
 =end text
 

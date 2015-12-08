@@ -51,7 +51,7 @@ This sample module contains one small method - count_contigs.
         # return the results
         return [returnVal]
 
-    def run_fba(self, ctx, workspace_name, fbamodel_id):
+    def run_fba(self, ctx, workspace_name, fbamodel_id, elements):
         # ctx is the context object
         # return variables are: returnVal
         #BEGIN run_fba
@@ -59,7 +59,7 @@ This sample module contains one small method - count_contigs.
         wsClient = workspaceService(self.workspaceURL, token=token)
         print self.fbaURL
         fbaClient = fbaService(self.fbaURL, token=token)
-        res = fbaClient.runfba({'workspace':workspace_name, 'model':fbamodel_id, 'massbalance':'C'})
+        res = fbaClient.runfba({'workspace':workspace_name, 'model':fbamodel_id, 'massbalance':elements})
         fbaobj = wsClient.get_objects([{'ref': workspace_name+'/'+res[1]}])[0]['data']
         returnVal = {'flux_value': fbaobj['objectiveValue'], 'mfa_log': fbaobj['MFALog']}
         #END run_fba

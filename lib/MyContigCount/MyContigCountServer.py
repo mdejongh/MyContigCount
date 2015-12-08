@@ -343,7 +343,7 @@ class Application(object):
         self.method_authentication['MyContigCount.count_contigs'] = 'required'
         self.rpc_service.add(impl_MyContigCount.run_fba,
                              name='MyContigCount.run_fba',
-                             types=[basestring, basestring])
+                             types=[basestring, basestring, basestring])
         self.method_authentication['MyContigCount.run_fba'] = 'required'
         self.auth_client = biokbase.nexus.Client(
             config={'server': 'nexus.api.globusonline.org',

@@ -34,7 +34,12 @@ module MyContigCount {
 	} RunFBAResult;
 	
 	/*
+	An string of element symbols separated by semi-colons (e.g., "C;N;O")
+	*/
+	typedef string elements;
+	
+	/*
 	Run FBA on the model and return the flux value
 	*/
-	funcdef run_fba(workspace_name,fbamodel_id) returns (RunFBAResult) authentication required;
+	funcdef run_fba(workspace_name,fbamodel_id,elements) returns (RunFBAResult) authentication required;
 };

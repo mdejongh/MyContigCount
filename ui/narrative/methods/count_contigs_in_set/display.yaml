@@ -35,5 +35,13 @@ parameters :
         long-hint  : |
             The FBA model for which you want to check mass balance
 
+    elements :
+        ui-name : |
+            Elements to check for mass balance
+        short-hint : |
+            Semi-colon separated list of elements to check for mass balance (e.g., "C;N;O")
+        long-hint  : |
+            Semi-colon separated list of elements to check for mass balance (e.g., "C;N;O")
+
 description : |
-	<p>This method checks every reaction in the FBA model for mass balance of the specified atoms.</p>
+	<p>This method checks every reaction in the FBA model for mass balance of the specified elements.</p>

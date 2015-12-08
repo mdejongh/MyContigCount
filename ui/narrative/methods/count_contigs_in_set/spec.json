@@ -22,6 +22,17 @@
 			"text_options": {
 				"valid_ws_types": ["KBaseFBA.FBAModel"]
 			}
+		},
+		{
+			"id": "elements",
+			"optional": true,
+			"advanced": true,
+			"allow_multiple": false,
+			"default_values": [ "C" ],
+			"field_type": "text",
+			"text_options": {
+				"validate_as": "string"
+			}
 		}
 	],
 	"behavior": {

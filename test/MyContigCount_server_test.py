@@ -72,7 +72,7 @@ class MyContigCountTest(unittest.TestCase):
         obj_name = "test.1"
         sbml = open("testmodel.xml").read()
         self.getFBAClient().import_fbamodel({'workspace':self.getWsName(), 'genome':'Rhodobacter_sphaeroides_2.4.1', 'genome_workspace':'KBaseExampleData', 'model':obj_name, 'biomass':'biomass0', 'sbml':sbml})
-        ret = self.getImpl().run_fba(self.getContext(), self.getWsName(), obj_name)
+        ret = self.getImpl().run_fba(self.getContext(), self.getWsName(), obj_name, "C")
         self.assertEqual(ret[0]['flux_value'], 500.0)
         self.assertEqual(ret[0]['MFALog'], 'Shutting down mass-imbalanced reaction: my99994-c_c0 [C]')
         return ret
