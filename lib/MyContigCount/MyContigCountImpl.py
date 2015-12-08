@@ -59,7 +59,7 @@ This sample module contains one small method - count_contigs.
         wsClient = workspaceService(self.workspaceURL, token=token)
         print self.fbaURL
         fbaClient = fbaService(self.fbaURL, token=token)
-        res = fbaClient.runfba({'workspace':workspace_name, 'model':fbamodel_id})
+        res = fbaClient.runfba({'workspace':workspace_name, 'model':fbamodel_id, 'massbalance':'C'})
         fbaobj = wsClient.get_objects([{'ref': workspace_name+'/'+res[1]}])[0]['data']
         returnVal = {'flux_value': fbaobj['objectiveValue'], 'mfa_log': fbaobj['MFALog']}
         #END run_fba
