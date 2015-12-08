@@ -55,6 +55,8 @@ This sample module contains one small method - count_contigs.
         # ctx is the context object
         # return variables are: returnVal
         #BEGIN run_fba
+        import sys
+        sys.stderr.write("In run_fba, elements is " + elements + "\n")
         print "In run_fba, elements is ", elements
         token = ctx['token']
         wsClient = workspaceService(self.workspaceURL, token=token)
