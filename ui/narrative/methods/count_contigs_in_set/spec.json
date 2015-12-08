@@ -48,6 +48,10 @@
 				{
 					"input_parameter": "fbamodel_id",
 					"target_argument_position": 1
+				},
+				{
+					"input_parameter": "elements",
+					"target_argument_position": 2
 				}
 			],
 			"output_mapping": [
