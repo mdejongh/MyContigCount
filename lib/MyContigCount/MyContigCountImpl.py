@@ -74,7 +74,7 @@ This sample module contains one small method - count_contigs.
     
         reportObj = {
             'objects_created':[{'ref':workspace_name+'/'+str(fbaobj['info'][0]), 'description':'FBA output'}],
-            'text_message':fbaobj['data']['MFALog']
+            'text_message':reportMessage
         }
 
         reportName = 'massbalance_report_'+fbamodel_id
