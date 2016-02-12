@@ -73,7 +73,7 @@ This sample module contains one small method - count_contigs.
             reportMessage = fbaobj['data']['MFALog']
     
         reportObj = {
-            'objects_created':[],
+            'objects_created':[{'ref':workspace_name+'/'+fbaobj['info'][0], 'description':'FBA output'}],
             'text_message':fbaobj['data']['MFALog']
         }
 
