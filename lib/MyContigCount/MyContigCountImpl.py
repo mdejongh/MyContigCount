@@ -68,7 +68,10 @@ This sample module contains one small method - count_contigs.
         fbaClient = fbaService(self.fbaURL, token=token)
         res = fbaClient.runfba({'workspace':workspace_name, 'model':fbamodel_id, 'massbalance':elements})
         fbaobj = wsClient.get_objects([{'ref': workspace_name+'/'+res[1]}])[0]
-
+        reportMessage = "No mass imbalance found"
+        if len(fbaobj['data']['MFALog']) > 0 :
+            reportMessage = fbaobj['data']['MFALog']
+    
         reportObj = {
             'objects_created':[],
             'text_message':fbaobj['data']['MFALog']
