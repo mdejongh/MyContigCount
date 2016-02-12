@@ -57,11 +57,40 @@ This sample module contains one small method - count_contigs.
         #BEGIN run_fba
         token = ctx['token']
         wsClient = workspaceService(self.workspaceURL, token=token)
+
+        # load the method provenance from the context object
+        provenance = [{}]
+        if 'provenance' in ctx:
+            provenance = ctx['provenance']
+        # add additional info to provenance here, in this case the input data object reference
+        provenance[0]['input_ws_objects']=[workspace_name+'/'+fbamodel_id]
+
         fbaClient = fbaService(self.fbaURL, token=token)
         res = fbaClient.runfba({'workspace':workspace_name, 'model':fbamodel_id, 'massbalance':elements})
-        fbaobj = wsClient.get_objects([{'ref': workspace_name+'/'+res[1]}])[0]['data']
-        rxns = fbaobj['MFALog'].splitlines()
-        returnVal = {'flux_value': fbaobj['objectiveValue'], 'mfa_log': rxns}
+        fbaobj = wsClient.get_objects([{'ref': workspace_name+'/'+res[1]}])[0]
+
+        reportObj = {
+            'objects_created':[],
+            'text_message':fbaobj['data']['MFALog']
+        }
+
+        reportName = 'massbalance_report_'+fbamodel_id
+        report_obj_info = wsClient.save_objects({
+                'id':fbaobj['info'][6],
+                'objects':[
+                    {
+                        'type':'KBaseReport.Report',
+                        'data':reportObj,
+                        'name':reportName,
+                        'meta':{},
+                        'hidden':1,
+                        'provenance':provenance
+                    }
+                ]
+            })[0]
+
+        returnVal = { 'report_name': reportName, 'report_ref': str(report_obj_info[6]) + '/' + str(report_obj_info[0]) + '/' + str(report_obj_info[4]) }
+
         #END run_fba
 
         # At some point might do deeper type checking...

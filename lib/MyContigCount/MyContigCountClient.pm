@@ -222,7 +222,8 @@ workspace_name is a string
 fbamodel_id is a string
 elements is a string
 RunFBAResult is a reference to a hash where the following keys are defined:
-	flux_value has a value which is a float
+	report_name has a value which is a string
+	report_ref has a value which is a string
 
 </pre>
 
@@ -238,7 +239,8 @@ workspace_name is a string
 fbamodel_id is a string
 elements is a string
 RunFBAResult is a reference to a hash where the following keys are defined:
-	flux_value has a value which is a float
+	report_name has a value which is a string
+	report_ref has a value which is a string
 
 
 =end text
@@ -492,7 +494,8 @@ a string
 
 <pre>
 a reference to a hash where the following keys are defined:
-flux_value has a value which is a float
+report_name has a value which is a string
+report_ref has a value which is a string
 
 </pre>
 
@@ -501,7 +504,8 @@ flux_value has a value which is a float
 =begin text
 
 a reference to a hash where the following keys are defined:
-flux_value has a value which is a float
+report_name has a value which is a string
+report_ref has a value which is a string
 
 
 =end text

@@ -30,7 +30,8 @@ module MyContigCount {
 	typedef string fbamodel_id;
 
 	typedef structure {
-	    float flux_value;
+	    string report_name;
+	    string report_ref;
 	} RunFBAResult;
 	
 	/*

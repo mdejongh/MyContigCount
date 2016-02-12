@@ -19,26 +19,44 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Generated("com.googlecode.jsonschema2pojo")
 @JsonPropertyOrder({
-    "flux_value"
+    "report_name",
+    "report_ref"
 })
 public class RunFBAResult {
 
-    @JsonProperty("flux_value")
-    private Double fluxValue;
+    @JsonProperty("report_name")
+    private String reportName;
+    @JsonProperty("report_ref")
+    private String reportRef;
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
-    @JsonProperty("flux_value")
-    public Double getFluxValue() {
-        return fluxValue;
+    @JsonProperty("report_name")
+    public String getReportName() {
+        return reportName;
     }
 
-    @JsonProperty("flux_value")
-    public void setFluxValue(Double fluxValue) {
-        this.fluxValue = fluxValue;
+    @JsonProperty("report_name")
+    public void setReportName(String reportName) {
+        this.reportName = reportName;
     }
 
-    public RunFBAResult withFluxValue(Double fluxValue) {
-        this.fluxValue = fluxValue;
+    public RunFBAResult withReportName(String reportName) {
+        this.reportName = reportName;
+        return this;
+    }
+
+    @JsonProperty("report_ref")
+    public String getReportRef() {
+        return reportRef;
+    }
+
+    @JsonProperty("report_ref")
+    public void setReportRef(String reportRef) {
+        this.reportRef = reportRef;
+    }
+
+    public RunFBAResult withReportRef(String reportRef) {
+        this.reportRef = reportRef;
         return this;
     }
 
@@ -54,7 +72,7 @@ public class RunFBAResult {
 
     @Override
     public String toString() {
-        return ((((("RunFBAResult"+" [fluxValue=")+ fluxValue)+", additionalProperties=")+ additionalProperties)+"]");
+        return ((((((("RunFBAResult"+" [reportName=")+ reportName)+", reportRef=")+ reportRef)+", additionalProperties=")+ additionalProperties)+"]");
     }
 
 }
